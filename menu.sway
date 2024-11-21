@@ -1,0 +1,60 @@
+@data {
+    isDisable bool = true
+    x num = 0
+    y num = 0
+    elems []object = [
+        {text string = "Menu1", handler func = menu1Click}
+        {text string = "Menu2", handler func = menu2Click}
+    ]
+}
+
+// Template section
+@template {
+    std.Container class="container" disable=isDisable contextmenu=show {
+        std.Col {
+            for elem in elems {
+                std.Row class="element" click=elem.handler {
+                    elem.text
+                }
+            }
+        }
+    }
+}
+
+@style {
+    #container {
+        position x y
+        height 100
+        width 60
+        backgroundColor black
+    }
+
+    #element {
+        textColor white
+    }
+
+    #element:hover {
+        backgroundColor white
+        textColor black
+    }
+}
+
+@handler show(event object) {
+    x = event.mouseX
+    y = event.mouseY
+    isDisable = false
+}
+
+@handler menu1Click(event object) {
+    println("Hello world from Menu1")
+}
+
+@handler menu2Click(event object) {
+    if event.x == 5 {
+        println("Hello world from Menu2")
+    } else if 1 == 1 {
+        println("Else if")
+    } else {
+        println("Else")
+    }
+}
